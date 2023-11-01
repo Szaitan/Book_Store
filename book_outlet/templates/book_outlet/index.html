@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}All Books{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for book in all_books %}
+        <li>
+            Title: {{ book.title }} Author: {{ book.author }} Rating: {{ book.rating }}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
