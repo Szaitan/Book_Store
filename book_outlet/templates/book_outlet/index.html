@@ -4,10 +4,12 @@
 {% block title %}All Books{% endblock %}
 
 {% block content %}
+<h1>Total number of books: {{ total_number_books }}</h1>
+<h2>Average rating: {{ average_rating.rating__avg }}</h2>
     <ul>
         {% for book in all_books %}
         <li>
-            Title: {{ book.title }} Author: {{ book.author }} Rating: {{ book.rating }}
+            <a href="{{ book.get_absolute_url }}">{{ book.title }} (Rating: {{ book.rating }})</a>
         </li>
         {% endfor %}
     </ul>
