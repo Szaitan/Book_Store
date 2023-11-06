@@ -6,10 +6,25 @@ from django.utils.text import slugify
 # Create your models here.
 
 
+class Country(models.Model):
+    name = models.CharField(max_length=50)
+    code = models.CharField(max_length=2)
+
+    class Meta:
+        verbose_name_plural = "Countries"
+
+    def __str__(self):
+        return f"{self.name}, {self.code}"
+
+
 class Adress(models.Model):
     street = models.CharField(max_length=80)
     postal_code = models.CharField(max_length=5)
     city = models.CharField(max_length=50)
+    image_address = models.ImageField(upload_to="images/", default="")
+
+    class Meta:
+        verbose_name_plural = "Address Entries"
 
     def __str__(self):
         return f"{self.street} {self.postal_code} {self.city}"
@@ -30,6 +45,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
     is_bestselling = models.BooleanField(default=False)
     slug = models.SlugField(null=False, default="", db_index=True, blank=True)
+    published_countries = models.ManyToManyField(Country)
 
     def __str__(self):
         return f"{self.title} ({self.rating} {self.author} {self.is_bestselling})"
